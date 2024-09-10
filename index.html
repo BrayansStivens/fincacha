@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="./fincacha/style.css" />
   </head>
   <body>
+    <audio id="backgroundMusic" loop autoplay preload="auto">
+      <source src="./fincacha/music.mp3" type="audio/mpeg">
+      Tu navegador no soporta el elemento de audio.
+    </audio>
+    <button id="muteButton" onclick="toggleMute()">🔊</button>
     <div id="container">
       <div id="topBar">
         <img src="./fincacha/Area51-Shadowlands-9776-kbnow2.gif" />
@@ -188,9 +193,9 @@
 
     <script>
       // Funcionalidad para el modal de "Cómo llegar"
-      var modalLlegar = document.getElementById("modalLlegar");
-      var btnLlegar = document.getElementById("btnLlegar");
-      var spanLlegar = modalLlegar.getElementsByClassName("close")[0];
+      let modalLlegar = document.getElementById("modalLlegar");
+      let btnLlegar = document.getElementById("btnLlegar");
+      let spanLlegar = modalLlegar.getElementsByClassName("close")[0];
 
       btnLlegar.onclick = function () {
         modalLlegar.style.display = "block";
@@ -201,9 +206,9 @@
       };
 
       // Funcionalidad para el modal de "Traer sustancias"
-      var modalSustancias = document.getElementById("modalSustancias");
-      var btnSustancias = document.getElementById("btnSustancias");
-      var spanSustancias = modalSustancias.getElementsByClassName("close")[0];
+      let modalSustancias = document.getElementById("modalSustancias");
+      let btnSustancias = document.getElementById("btnSustancias");
+      let spanSustancias = modalSustancias.getElementsByClassName("close")[0];
 
       btnSustancias.onclick = function () {
         modalSustancias.style.display = "block";
@@ -214,9 +219,9 @@
       };
 
       // Funcionalidad para el nuevo modal de "Pagar cupo"
-      var modalPagar = document.getElementById("modalPagar");
-      var btnPagar = document.getElementById("btnPagar");
-      var spanPagar = modalPagar.getElementsByClassName("close")[0];
+      let modalPagar = document.getElementById("modalPagar");
+      let btnPagar = document.getElementById("btnPagar");
+      let spanPagar = modalPagar.getElementsByClassName("close")[0];
 
       btnPagar.onclick = function () {
         modalPagar.style.display = "block";
@@ -238,6 +243,32 @@
           modalPagar.style.display = "none";
         }
       };
+
+      let music = document.getElementById("backgroundMusic");
+      let muteButton = document.getElementById("muteButton");
+      
+      // Intenta reproducir la música inmediatamente
+      function playMusic() {
+        music.play().catch(function(error) {
+          console.log("Autoplay was prevented. User interaction is required to start audio playback.");
+        });
+      }
+
+      // Intenta reproducir la música cuando se carga la página
+      window.addEventListener('load', playMusic);
+
+      // Intenta reproducir la música cuando el usuario interactúa con la página
+      document.body.addEventListener('click', playMusic, { once: true });
+
+      function toggleMute() {
+        if (music.muted) {
+          music.muted = false;
+          muteButton.innerHTML = "🔊";
+        } else {
+          music.muted = true;
+          muteButton.innerHTML = "🔇";
+        }
+      }
     </script>
   </body>
 </html>
